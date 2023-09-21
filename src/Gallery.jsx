@@ -67,7 +67,7 @@ const Card = ({ src, title, id, index, moveImage, tag }) => {
       <img
         src={src}
         alt={title}
-        className="h-[300px] md:h-[250px] w-[300px] md:w-[280px] "
+        className="h-[300px] md:h-[250px] w-[90%] md:w-[280px] "
       />
       <p className="absolute top-1 text-xs rounded-[12px] bg-[#F3F4F680] px-2 py-[3px] text-[#111827] font-bold">
         {tag}
