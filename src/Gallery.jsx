@@ -108,7 +108,7 @@ const Gallery = ({ searchQuery }) => {
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 10000);
+    }, 5000);
   }, [searchQuery, images]);
 
   return (
