@@ -1,5 +1,7 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { DndProvider } from "react-dnd";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 import galleryList from "./photo.jsx";
 
@@ -62,7 +64,11 @@ const Card = ({ src, title, id, index, moveImage, tag }) => {
       style={{ opacity }}
       className=" shadow relative border mb-5 "
     >
-      <img src={src} alt={title} className="h-[250px] w-[280px] " />
+      <img
+        src={src}
+        alt={title}
+        className="h-[300px] md:h-[250px] w-[300px] md:w-[280px] "
+      />
       <p className="absolute top-1 text-xs rounded-[12px] bg-[#F3F4F680] px-2 py-[3px] text-[#111827] font-bold">
         {tag}
       </p>
@@ -111,28 +117,30 @@ const Gallery = ({ searchQuery }) => {
 
   return (
     <>
-      <main className="pb-[80px] pt-[40px]">
-        <div className="columns-1 gap-5 lg:gap-8 sm:columns-2 lg:columns-3 xl:columns-4 mt-5 ">
-          {isLoading
-            ? // Render skeleton cards when isLoading is true
-              Array(4)
-                .fill()
-                .map((_, index) => <SkeletonCard key={index} />)
-            : // Render actual cards when isLoading is false
-              React.Children.toArray(
-                filteredImages.map((image, index) => (
-                  <Card
-                    src={image.img}
-                    title={image.title}
-                    id={image.id}
-                    index={index}
-                    moveImage={moveImage}
-                    tag={image.tag}
-                  />
-                ))
-              )}
-        </div>
-      </main>
+      <DndProvider backend={TouchBackend}>
+        <main className="pb-[80px] pt-[40px]">
+          <div className="columns-1 gap-5 lg:gap-8 sm:columns-2 lg:columns-3 xl:columns-4 mt-5 ">
+            {isLoading
+              ? // Render skeleton cards when isLoading is true
+                Array(4)
+                  .fill()
+                  .map((_, index) => <SkeletonCard key={index} />)
+              : // Render actual cards when isLoading is false
+                React.Children.toArray(
+                  filteredImages.map((image, index) => (
+                    <Card
+                      src={image.img}
+                      title={image.title}
+                      id={image.id}
+                      index={index}
+                      moveImage={moveImage}
+                      tag={image.tag}
+                    />
+                  ))
+                )}
+          </div>
+        </main>
+      </DndProvider>
     </>
   );
 };
