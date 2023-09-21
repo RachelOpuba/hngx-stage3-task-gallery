@@ -64,7 +64,7 @@ const Card = ({ src, title, id, index, moveImage, tag }) => {
       style={{ opacity }}
       className=" shadow relative border mb-8 md:mb-5 "
     >
-      <img src={src} alt={title} className="h-[320px] w-[320px] " />
+      <img src={src} alt={title} className="h-[280px] w-[320px] " />
       <p className="absolute top-1 text-xs rounded-[12px] bg-[#F3F4F680] px-2 py-[3px] text-[#111827] font-bold">
         {tag}
       </p>
