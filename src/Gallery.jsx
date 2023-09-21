@@ -62,7 +62,7 @@ const Card = ({ src, title, id, index, moveImage, tag }) => {
       style={{ opacity }}
       className=" shadow relative border mb-5 "
     >
-      <img src={src} alt={title} className="h-[240px] w-full " />
+      <img src={src} alt={title} className="h-[250px] w-[280px] " />
       <p className="absolute top-1 text-xs rounded-[12px] bg-[#F3F4F680] px-2 py-[3px] text-[#111827] font-bold">
         {tag}
       </p>
@@ -70,9 +70,19 @@ const Card = ({ src, title, id, index, moveImage, tag }) => {
   );
 };
 
+const SkeletonCard = () => {
+  return (
+    <div className="shadow relative border mb-5 animate-pulse">
+      <div className="h-[240px] w-[240px] bg-gray-300"></div>
+      <div className="absolute top-1 bg-gray-300 h-5 w-20 rounded-[12px]"></div>
+    </div>
+  );
+};
+
 const Gallery = ({ searchQuery }) => {
   const [images, setImages] = useState(galleryList);
   const [filteredImages, setFilteredImages] = useState(images);
+  const [isLoading, setIsLoading] = useState(true);
 
   const moveImage = useCallback((dragIndex, hoverIndex) => {
     setImages((prevCards) => {
@@ -93,24 +103,34 @@ const Gallery = ({ searchQuery }) => {
       );
       setFilteredImages(filtered);
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 10000);
   }, [searchQuery, images]);
 
   return (
     <>
       <main className="pb-[80px] pt-[40px]">
         <div className="columns-1 gap-5 lg:gap-8 sm:columns-2 lg:columns-3 xl:columns-4 mt-5 ">
-          {React.Children.toArray(
-            filteredImages.map((image, index) => (
-              <Card
-                src={image.img}
-                title={image.title}
-                id={image.id}
-                index={index}
-                moveImage={moveImage}
-                tag={image.tag}
-              />
-            ))
-          )}
+          {isLoading
+            ? // Render skeleton cards when isLoading is true
+              Array(4)
+                .fill()
+                .map((_, index) => <SkeletonCard key={index} />)
+            : // Render actual cards when isLoading is false
+              React.Children.toArray(
+                filteredImages.map((image, index) => (
+                  <Card
+                    src={image.img}
+                    title={image.title}
+                    id={image.id}
+                    index={index}
+                    moveImage={moveImage}
+                    tag={image.tag}
+                  />
+                ))
+              )}
         </div>
       </main>
     </>

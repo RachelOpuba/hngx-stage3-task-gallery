@@ -25,19 +25,21 @@ const AuthHeader = ({ setSearchQuery }) => {
   };
 
   const dynamicStyle = user
-    ? { justifyContent: "space-evenly" }
+    ? { justifyContent: "space-between" }
     : { justifyContent: "space-between" };
 
   return (
     <>
       <div
-        className="absoluten bg-white hover:bg-black top-0 left-0 w-full max-w-[1441px] shadow border h-[100px] border-b-2 flex    items-center z-20 px-[40px]"
+        className="absoluten bg-white hover:bg-black top-0 left-0 w-full max-w-[1441px] shadow border h-[100px] border-b-2 flex    items-center z-20 px-2 md:px-[40px] mx-auto"
         style={dynamicStyle}
       >
         {" "}
-        <p className="text-3xl font-bold text-blue-500 italic">Galarina</p>
+        <p className="text-xl md:text-3xl font-bold text-blue-500 italic">
+          GLrina
+        </p>
         {user ? (
-          <div className="h-[46px] rounded-[48px] w-[535px] border bg-[#f8fafc]  mx-16 flex justify-between items-center px-4">
+          <div className="h-[46px] rounded-[48px] w-[50%] md:w-[535px] border bg-[#f8fafc]  mx-4 md:mx-16 flex justify-between items-center px-4">
             <input
               type="text"
               placeholder="Search..."
@@ -50,10 +52,10 @@ const AuthHeader = ({ setSearchQuery }) => {
           ""
         )}
         {user ? (
-          <div className="flex gap-1 justify-center items-center">
+          <div className="hidden md:flex gap-1 justify-center items-center">
             {" "}
             <img src={profile} alt="Profile" className="h-12" />
-            <p className="text-sm text-primary font-medium px-4">
+            <p className="text-sm text-primary font-medium px-2 lg:px-4 me-6">
               Welcome User
             </p>
           </div>
@@ -63,7 +65,7 @@ const AuthHeader = ({ setSearchQuery }) => {
         {user ? (
           <button
             onClick={handleLogout}
-            className="py-2 px-6 rounded bg-blue-500 text-white font-semibold ms-6"
+            className="py-2 px-2 md:px-6 rounded bg-blue-500 text-white font-semibold "
           >
             Logout
           </button>
